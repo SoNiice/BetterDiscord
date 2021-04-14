@@ -1,5 +1,6 @@
 /**
  * @name MassMover
+ * @updateUrl https://raw.githubusercontent.com/SoNiice/BetterDiscord/main/MassMover.plugin.js
  */
 
 module.exports = (() => {
@@ -15,9 +16,7 @@ module.exports = (() => {
                 }
             ],
             version: "1.0.1",
-            description: "Allows you to mass move users from voice channels",
-            github: 'https://github.com/SoNiice',
-            github_raw: 'https://raw.githubusercontent.com/SoNiice/BetterDiscord/main/MassMover.plugin.js'
+            description: "Allows you to mass move users from voice channels"
         },
         changelog: [
             {
@@ -88,9 +87,6 @@ module.exports = (() => {
                     const [VoiceChannelContextMenu] = WebpackModules.getModules(m => m.default && m.default.displayName === "ChannelListVoiceChannelContextMenu");
 
                     Patcher.after(VoiceChannelContextMenu, "default", (_, [props], retVal) => {
-                        if (!DiscordModules.Permissions.can(DiscordModules.DiscordPermissions.MOVE_MEMBERS, DiscordAPI.currentUser.id, props.guild))
-                            return;
-
                         const channels = [];
 
                         getGuildChannels(props.guild.id).sort((a, b) => (a.position > b.position) ? 1 : ((b.position > a.position) ? -1 : 0)).forEach(c => {
