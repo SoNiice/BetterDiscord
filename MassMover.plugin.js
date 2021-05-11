@@ -15,10 +15,15 @@ module.exports = (() => {
                     twitter_username: "iTSONiiCEXD"
                 }
             ],
-            version: "1.0.1",
+            version: "1.0.2",
             description: "Allows you to mass move users from voice channels"
         },
         changelog: [
+            {
+                title: 'Version 1.0.2',
+                type: 'fixed',
+                items: ['Fixed a bug where other channels than VOICE / STAGE_VOICE channels were shown in the context menu.']
+            },
             {
                 title: 'Version 1.0.1',
                 type: 'fixed',
@@ -61,7 +66,7 @@ module.exports = (() => {
 
             const getGuildChannels = (...guildIds) => {
                 const channels = ChannelStore.getGuildChannels ? Object.values(ChannelStore.getGuildChannels()) : ChannelStore.getMutableGuildChannels ? Object.values(ChannelStore.getMutableGuildChannels()) : [];
-                return channels.filter(c => guildIds.includes(c.guild_id) && c.type !== DiscordConstants.ChannelTypes.GUILD_TEXT && c.type !== DiscordConstants.ChannelTypes.GUILD_CATEGORY);
+                return channels.filter(c => guildIds.includes(c.guild_id) && (c.type === DiscordConstants.ChannelTypes.GUILD_VOICE || c.type === DiscordConstants.ChannelTypes.GUILD_STAGE_VOICE));
             }
 
             return class MassMover extends Plugin {
